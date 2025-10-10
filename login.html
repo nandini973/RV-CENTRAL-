@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RV Central - Login</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: system-ui, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: black;
+      color: white;
+      padding: 20px;
+    }
+
+    #vanta-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    .content-wrapper {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, #b388ff, #00e6ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+    }
+
+    .header p {
+      color: #e3b65c;
+      font-size: 0.95rem;
+      letter-spacing: 1.5px;
+    }
+
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(111, 111, 255, 0.5), transparent);
+      margin: 30px 0;
+    }
+
+    .nav-link {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .nav-link a {
+      color: #dcdcff;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.3s ease;
+    }
+
+    .nav-link a:hover {
+      color: #b388ff;
+    }
+
+    .sub-tabs {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 25px;
+    }
+
+    .sub-tabs button {
+      font-size: 0.9rem;
+      color: rgba(220, 220, 255, 0.8);
+      background: transparent;
+      border: 1px solid rgba(111, 111, 255, 0.5);
+      border-radius: 6px;
+      padding: 8px 20px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .sub-tabs button:hover {
+      background: rgba(111, 111, 255, 0.15);
+      border-color: #6f6fff;
+    }
+
+    .sub-tabs button.active {
+      background: rgba(111, 111, 255, 0.3);
+      border-color: #6f6fff;
+      color: white;
+    }
+
+    .form-container {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    }
+
+    .login-form {
+      display: none;
+    }
+
+    .login-form.active {
+      display: block;
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h3 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #d29cff;
+      font-size: 1.4rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: rgba(220, 220, 255, 0.9);
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+
+    .submit-btn {
+      width: 100%;
+      font-size: 1.05rem;
+      color: white;
+      background: linear-gradient(135deg, #6f6fff, #b388ff);
+      border: none;
+      border-radius: 8px;
+      padding: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+
+    .submit-btn:hover:not(:disabled) {
+      background: linear-gradient(135deg, #8080ff, #c49fff);
+      box-shadow: 0 0 20px rgba(111, 111, 255, 0.6);
+      transform: translateY(-2px);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .star-border {
+      position: relative;
+      display: inline-block;
+      border-radius: 12px;
+      overflow: hidden;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    .star-border .border-gradient-bottom,
+    .star-border .border-gradient-top {
+      position: absolute;
+      width: 120%;
+      height: 15%;
+      opacity: 0;
+      border-radius: 50%;
+      z-index: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .star-border .border-gradient-bottom {
+      bottom: -3px;
+      right: -60%;
+      animation: star-movement-bottom 5s linear infinite alternate;
+      animation-play-state: paused;
+    }
+
+    .star-border .border-gradient-top {
+      top: -3px;
+      left: -60%;
+      animation: star-movement-top 5s linear infinite alternate;
+      animation-play-state: paused;
+    }
+
+    .star-border:hover .border-gradient-bottom,
+    .star-border:hover .border-gradient-top {
+      opacity: 0.6;
+      animation-play-state: running;
+    }
+
+    .star-border input,
+    .star-border select,
+    .star-border button {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(111, 111, 255, 0.3);
+      border-radius: 8px;
+      padding: 12px 16px;
+      color: white;
+      font-size: 1rem;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    .star-border input:focus,
+    .star-border select:focus,
+    .star-border button:focus {
+      border-color: #6f6fff;
+      box-shadow: 0 0 12px rgba(111, 111, 255, 0.3);
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .star-border select {
+      cursor: pointer;
+    }
+
+    .star-border select option {
+      background: #1a1a1a;
+      color: white;
+    }
+
+    @keyframes star-movement-bottom {
+      0% { transform: translate(0%,0%); }
+      100% { transform: translate(-50%,0%); }
+    }
+
+    @keyframes star-movement-top {
+      0% { transform: translate(0%,0%); }
+      100% { transform: translate(50%,0%); }
+    }
+
+    .message {
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      text-align: center;
+      font-weight: 500;
+      display: none;
+    }
+
+    .message.error {
+      background: rgba(244, 67, 54, 0.2);
+      border: 1px solid rgba(244, 67, 54, 0.5);
+      color: #ff6b6b;
+    }
+
+    .message.success {
+      background: rgba(76, 175, 80, 0.2);
+      border: 1px solid rgba(76, 175, 80, 0.5);
+      color: #4caf50;
+    }
+
+    @media (max-width: 600px) {
+      .header h1 { font-size: 2rem; }
+      .form-container { padding: 30px 25px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="vanta-bg"></div>
+
+  <div class="content-wrapper">
+    <div class="header">
+      <h1>RV Central</h1>
+      <p>THE SMART CAMPUS COMPANION</p>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="nav-link">
+      <p>Don't have an account? <a href="signup.html">Sign up here</a></p>
+    </div>
+
+    <div class="form-container">
+      <div id="message" class="message"></div>
+
+      <div class="sub-tabs">
+        <button class="active" onclick="showLoginForm('user')">User Login</button>
+        <button onclick="showLoginForm('admin')">Admin Login</button>
+      </div>
+
+      <form id="userLoginForm" class="login-form active">
+        <h3>User Login</h3>
+
+        <div class="star-border" data-color="#00ffff" data-speed="5s">
+          <div class="border-gradient-bottom"></div>
+          <div class="border-gradient-top"></div>
+          <input type="text" name="username" placeholder="Enter your username" required>
+        </div>
+
+        <div class="star-border" data-color="#ff00ff" data-speed="5s">
+          <div class="border-gradient-bottom"></div>
+          <div class="border-gradient-top"></div>
+          <input type="text" name="course" placeholder="e.g., Computer Science" required>
+        </div>
+
+        <div class="star-border" data-color="#00ffff" data-speed="5s">
+          <div class="border-gradient-bottom"></div>
+          <div class="border-gradient-top"></div>
+          <input type="text" name="year" placeholder="e.g., 2nd Year" required>
+        </div>
+
+        <div class="star-border" data-color="#ff00ff" data-speed="5s">
+          <div class="border-gradient-bottom"></div>
+          <div class="border-gradient-top"></div>
+          <input type="password" name="password" placeholder="Enter your password" required>
+        </div>
+
+        <div class="star-border" data-color="#00ffff" data-speed="5s">
+          <div class="border-gradient-bottom"></div>
+          <div class="border-gradient-top"></div>
+          <button type="submit" class="submit-btn">Login</button>
+        </div>
+      </form>
+
+      <form id="adminLoginForm" class="login-form">
+        <h3>Admin Login</h3>
+
+        <div class="star-border" data-color="#00ffff" data-speed="5s">
+          <div class="border-gradient-bottom"></div>
+          <div class="border-gradient-top"></div>
+          <input type="text" name="admin_username" placeholder="Enter admin username" required>
+        </div>
+
+        <div class="star-border" data-color="#ff00ff" data-speed="5s">
+          <div class="border-gradient-bottom"></div>
+          <div class="border-gradient-top"></div>
+          <input type="password" name="admin_password" placeholder="Enter your password" required>
+        </div>
+
+        <div class="star-border" data-color="#00ffff" data-speed="5s">
+          <div class="border-gradient-bottom"></div>
+          <div class="border-gradient-top"></div>
+          <select name="role" required>
+            <option value="">Select Role</option>
+            <option value="lead">Lead</option>
+            <option value="president">President</option>
+          </select>
+        </div>
+
+        <div class="star-border" data-color="#ff00ff" data-speed="5s">
+          <div class="border-gradient-bottom"></div>
+          <div class="border-gradient-top"></div>
+          <select name="club" required>
+            <option value="">Select Club</option>
+            <option value="chiptech">Chiptech</option>
+            <option value="anthara">Anthara</option>
+            <option value="anchor">Anchor</option>
+            <option value="happy_trills">Happy Trills</option>
+          </select>
+        </div>
+
+        <div class="star-border" data-color="#00ffff" data-speed="5s">
+          <div class="border-gradient-bottom"></div>
+          <div class="border-gradient-top"></div>
+          <button type="submit" class="submit-btn">Login</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta/dist/vanta.net.min.js"></script>
+
+  <script>
+    const API_URL = 'http://localhost:3000/api';
+
+    VANTA.NET({
+      el: "#vanta-bg",
+      mouseControls: true,
+      touchControls: true,
+      minHeight: 200.00,
+      minWidth: 200.00,
+      scale: 1.00,
+      scaleMobile: 1.00,
+      color: 0x7b2ff7,
+      backgroundColor: 0x000000,
+      showDots: true,
+      maxDistance: 30.0,
+      spacing: 20.0
+    });
+
+    function showMessage(text, type) {
+      const messageEl = document.getElementById('message');
+      messageEl.textContent = text;
+      messageEl.className = `message ${type}`;
+      messageEl.style.display = 'block';
+
+      setTimeout(() => {
+        messageEl.style.display = 'none';
+      }, 5000);
+    }
+
+    function showLoginForm(type) {
+      document.querySelectorAll('.sub-tabs button').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      if (type === 'user') {
+        document.getElementById('userLoginForm').classList.add('active');
+        document.getElementById('adminLoginForm').classList.remove('active');
+      } else {
+        document.getElementById('userLoginForm').classList.remove('active');
+        document.getElementById('adminLoginForm').classList.add('active');
+      }
+    }
+
+    // User Login
+    document.getElementById('userLoginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const submitBtn = e.target.querySelector('.submit-btn');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Logging in...';
+
+      const formData = {
+        username: e.target.username.value,
+        course: e.target.course.value,
+        year: e.target.year.value,
+        password: e.target.password.value
+      };
+
+      try {
+        const response = await fetch(`${API_URL}/user/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          showMessage('Login successful! Redirecting...', 'success');
+          localStorage.setItem('user', JSON.stringify(data.user));
+          setTimeout(() => window.location.href = 'index.html', 1500);
+        } else {
+          showMessage(data.message || 'Login failed', 'error');
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Login';
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        showMessage('Server connection error. Make sure the backend is running.', 'error');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Login';
+      }
+    });
+
+    // Admin Login
+    document.getElementById('adminLoginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const submitBtn = e.target.querySelector('.submit-btn');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Logging in...';
+
+      const formData = {
+        admin_username: e.target.admin_username.value,
+        admin_password: e.target.admin_password.value,
+        role: e.target.role.value,
+        club: e.target.club.value
+      };
+
+      try {
+        const response = await fetch(`${API_URL}/admin/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          showMessage('Admin login successful! Redirecting...', 'success');
+          localStorage.setItem('user', JSON.stringify(data.admin));
+          setTimeout(() => window.location.href = 'index.html', 1500);
+        } else {
+          showMessage(data.message || 'Login failed', 'error');
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Login';
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        showMessage('Server connection error. Make sure the backend is running.', 'error');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Login';
+      }
+    });
+
+    document.querySelectorAll('.star-border').forEach(el => {
+      const color = el.getAttribute('data-color') || 'white';
+      const speed = el.getAttribute('data-speed') || '6s';
+      const top = el.querySelector('.border-gradient-top');
+      const bottom = el.querySelector('.border-gradient-bottom');
+      if(top) {
+        top.style.background = `radial-gradient(circle, ${color}, transparent 10%)`;
+        top.style.animationDuration = speed;
+      }
+      if(bottom) {
+        bottom.style.background = `radial-gradient(circle, ${color}, transparent 10%)`;
+        bottom.style.animationDuration = speed;
+      }
+    });
+  </script>
+</body>
+</html>

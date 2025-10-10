@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RV Central — Argonyx'25</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: system-ui, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow-x: hidden;
+      background: black;
+      padding-top: 72px;
+    }
+
+    /* ---------- NAVBAR ---------- */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 4%;
+      z-index: 999;
+      background: linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.15));
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .nav-logo {
+      width: 46px;
+      height: 46px;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .brand {
+      color: white;
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: 0.6px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: rgba(220,220,220,0.9);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 8px 10px;
+      border-radius: 8px;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      background: rgba(111,111,255,0.12);
+      color: white;
+    }
+
+    .nav-right {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .btn-login {
+      font-size: 0.95rem;
+      color: #dcdcff;
+      background: transparent;
+      border: 2px solid #6f6fff;
+      border-radius: 8px;
+      padding: 8px 14px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .btn-login:hover {
+      background: #6f6fff;
+      color: white;
+      box-shadow: 0 0 12px rgba(111,111,255,0.4);
+    }
+
+    .hamburger {
+      display: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.03);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    /* ---------- HERO SECTION ---------- */
+    .hero {
+      width: 100%;
+      height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding-left: 10%;
+      background: radial-gradient(circle at top left, rgba(123, 47, 247, 0.2), transparent 70%);
+      color: white;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-content {
+      max-width: 800px;
+    }
+
+    .hero-logo {
+      width: 90px;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .hero-subtitle {
+      font-size: 0.95rem;
+      letter-spacing: 2px;
+      color: #e3b65c;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hero-title {
+      font-size: 4rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, #b388ff, #00e6ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
+    }
+
+    .hero-title span {
+      color: transparent;
+      background: linear-gradient(90deg, #d29cff, #00e6ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-tagline {
+      font-size: 1.1rem;
+      color: #f3cc73;
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+
+    .hero-button {
+      font-size: 1rem;
+      color: #dcdcff;
+      background: transparent;
+      border: 2px solid #6f6fff;
+      border-radius: 8px;
+      padding: 10px 22px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .hero-button:hover {
+      background: #6f6fff;
+      color: white;
+      box-shadow: 0 0 15px rgba(111, 111, 255, 0.5);
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        padding-left: 5%;
+        height: auto;
+        padding-top: 100px;
+        padding-bottom: 80px;
+      }
+      .hero-title {
+        font-size: 2.6rem;
+      }
+      .hero-tagline {
+        font-size: 1rem;
+      }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+
+    /* Search Bar */
+    .nav-search {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin: 0 20px;
+    }
+
+    .nav-search input {
+      padding: 6px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.05);
+      color: white;
+      outline: none;
+      transition: all 0.3s ease;
+      width: 180px;
+    }
+
+    .nav-search input::placeholder {
+      color: rgba(255,255,255,0.6);
+    }
+
+    .nav-search input:focus {
+      background: rgba(255,255,255,0.1);
+      border-color: #6f6fff;
+    }
+
+    .nav-search button {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: white;
+      font-size: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .nav-search { display: none; }
+      .brand { display: none; }
+    }
+
+    /* ---------- MAIN CONTENT STYLES ---------- */
+    .main-content {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 60px;
+      margin-top: 40px;
+      padding-bottom: 60px;
+    }
+
+    /* Greeting */
+    .greeting {
+      text-align: center;
+      color: white;
+      padding: 20px;
+    }
+    .greeting-title {
+      font-size: 3.2rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      background: linear-gradient(90deg, #b388ff, #00e6ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: fadeInUp 0.8s ease;
+    }
+    .greeting-subtitle {
+      font-size: 1.3rem;
+      opacity: 0.9;
+      max-width: 700px;
+      margin: 0 auto;
+      color: #e0e0e0;
+      line-height: 1.6;
+    }
+
+    /* Banner Carousel */
+    .banner-carousel {
+      width: 92%;
+      max-width: 1300px;
+      overflow: hidden;
+      border-radius: 20px;
+      box-shadow: 0 12px 40px rgba(123, 47, 247, 0.3);
+      position: relative;
+      height: 400px;
+    }
+    .carousel-track {
+      display: flex;
+      transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+      height: 100%;
+    }
+    .carousel-item {
+      min-width: 100%;
+      width: 100%;
+      height: 100%;
+      flex-shrink: 0;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(111,111,255,0.3), rgba(123,47,247,0.3));
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255,255,255,0.2);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    .banner-content {
+    background: rgba(0, 0, 0, 0.1); /* very subtle */
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-align: center;
+    color: white;
+    }
+
+    .banner-content h3,
+    .banner-content p {
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    }
+
+    .banner-content {
+      text-align: center;
+      color: white;
+      padding: 20px;
+    }
+    .banner-content h3 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .banner-content p {
+      font-size: 1.3rem;
+      opacity: 0.85;
+    }
+
+    /* Carousel Navigation Dots */
+    .carousel-dots {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 10;
+    }
+    .carousel-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.4);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .carousel-dot.active {
+      background: white;
+      width: 30px;
+      border-radius: 5px;
+    }
+
+    /* Carousel Navigation Arrows */
+    .carousel-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 10;
+      font-size: 1.5rem;
+      user-select: none;
+    }
+    .carousel-nav:hover {
+      background: rgba(255,255,255,0.3);
+      transform: translateY(-50%) scale(1.1);
+    }
+    .carousel-nav.prev {
+      left: 20px;
+    }
+    .carousel-nav.next {
+      right: 20px;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Upcoming Events Cards */
+    .upcoming-events {
+      width: 95%;
+      max-width: 1300px;
+      padding: 0 20px;
+    }
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .section-title {
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: white;
+      margin: 0;
+    }
+    .view-all {
+      color: #b388ff;
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    .view-all:hover {
+      color: #00e6ff;
+    }
+
+    .events-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+    }
+
+    .event-card {
+      background: rgba(255,255,255,0.08);
+      border-radius: 20px;
+      overflow: hidden;
+      color: white;
+      border: 1px solid rgba(255,255,255,0.15);
+      backdrop-filter: blur(15px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      transition: all 0.4s ease;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .event-image {
+      width: 100%;
+      height: 180px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .event-badge {
+      background: rgba(255,255,255,0.25);
+      backdrop-filter: blur(10px);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .event-badge.free {
+      background: rgba(76, 175, 80, 0.3);
+    }
+
+    .event-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+    }
+
+    .event-card h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0;
+      color: #ffffff;
+    }
+
+    .event-price {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #f3cc73;
+      margin: 0;
+    }
+
+    .event-price.free-tag {
+      color: #4caf50;
+    }
+
+    .event-description {
+      font-size: 0.95rem;
+      opacity: 0.85;
+      line-height: 1.6;
+      margin: 0;
+      flex: 1;
+    }
+
+    .event-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .event-meta span {
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    .event-btn {
+      background: linear-gradient(135deg, #6f6fff, #b388ff);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 12px;
+    }
+
+    .event-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(111,111,255,0.4);
+    }
+
+    .event-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 48px rgba(123,47,247,0.4);
+      border-color: rgba(111,111,255,0.4);
+    }
+
+    /* ---------- FOOTER ---------- */
+.footer {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(15px);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding: 40px 4%;
+  margin-top: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.footer-left {
+  flex: 1;
+}
+
+.footer-contacts {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  flex: 1;
+  justify-content: center;
+}
+
+.footer-contacts a {
+  color: #00e6ff;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: color 0.3s ease, transform 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-contacts a:hover {
+  color: #ff6ec7;
+  transform: translateY(-2px);
+}
+
+.footer-team {
+  color: rgba(255,255,255,0.9);
+  font-size: 1rem;
+  font-weight: 500;
+  flex: 1;
+  text-align: right;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .footer-left {
+    display: none;
+  }
+
+  .footer-contacts {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .footer-team {
+    text-align: center;
+  }
+}
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .greeting-title {
+        font-size: 2.4rem;
+      }
+      .greeting-subtitle {
+        font-size: 1.1rem;
+      }
+      .carousel-item {
+        min-width: 100%;
+        height: 300px;
+      }
+      .banner-content h3 {
+        font-size: 1.6rem;
+      }
+      .banner-content p {
+        font-size: 1rem;
+      }
+      .carousel-nav {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+      }
+      .carousel-nav.prev {
+        left: 10px;
+      }
+      .carousel-nav.next {
+        right: 10px;
+      }
+      .banner-carousel {
+        height: 300px;
+      }
+      .section-title {
+        font-size: 2rem;
+      }
+      .events-container {
+        grid-template-columns: 1fr;
+      }
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body id="vanta-bg">
+
+<!-- NAVBAR -->
+<header class="navbar" role="navigation" aria-label="Main navigation">
+  <div class="nav-left">
+    <img src="https://kalpavikas-rvu.vercel.app/_next/image?url=%2Frvu-logo.png&w=256&q=75" alt="RV logo" class="nav-logo">
+    <div class="brand">RV Central</div>
+  </div>
+
+  <div class="nav-search">
+    <input type="text" placeholder="Search..." />
+    <button aria-label="Search"></button>
+  </div>
+
+  <nav class="nav-links" aria-label="Primary">
+    <a href="#home" onclick="document.querySelector('.hero').scrollIntoView({behavior:'smooth'})">Home</a>
+    <a href="./clubs.html">Clubs</a>
+    <a href="./events.html">Events</a>
+    <a href="./announcements.html">Announcements</a>
+    <a href="#contact">Contact Us</a>
+  </nav>
+
+  <div class="nav-right">
+  <a href="./login.html" class="btn-login">Login</a>
+  <a href="./signup.html" class="btn-login">Sign Up</a>
+  <div class="hamburger" aria-hidden="true">
+    <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect y="1" width="18" height="2" rx="1" fill="rgba(220,220,220,0.9)"/>
+      <rect y="6" width="18" height="2" rx="1" fill="rgba(220,220,220,0.9)"/>
+      <rect y="11" width="18" height="2" rx="1" fill="rgba(220,220,220,0.9)"/>
+    </svg>
+  </div>
+</div>
+</header>
+
+<!-- HERO SECTION -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <p class="hero-subtitle">
+      <img src="https://kalpavikas-rvu.vercel.app/_next/image?url=%2Frvu-logo.png&w=256&q=75"
+          alt="RV University Logo"
+          class="hero-logo">
+        RV UNIVERSITY PRESENTS
+    </p>
+    <h1 class="hero-title">Welcome to <span>RV Central</span></h1>
+    <p class="hero-tagline">Your one-stop hub for campus events, clubs, and everything happening at RV University</p>
+    <button class="hero-button">Explore Now</button>
+  </div>
+</section>
+
+<!-- MAIN CONTENT -->
+<main class="main-content">
+
+  <!-- Hello / Greeting Section -->
+  <section class="greeting">
+    <h2 class="greeting-title">Hello there!</h2>
+    <p class="greeting-subtitle">Discover upcoming campus events, volunteer opportunities, and live updates — all in one place.</p>
+  </section>
+
+  <!-- Banner Carousel -->
+  <section class="banner-carousel">
+    <div class="carousel-track">
+      <div class="carousel-item" style="background-image: url('https://images.pexels.com/photos/2747449/pexels-photo-2747449.jpeg?cs=srgb&dl=pexels-wolfgang-1002140-2747449.jpg&fm=jpg'); background-size: cover; background-position: center;">
+        <div class="banner-content">
+            <h3>Cultural Night</h3>
+            <p>Experience the colors of campus life</p>
+        </div>
+      </div>
+
+      <div class="carousel-item" style="background-image: url('https://lh7-rt.googleusercontent.com/docsz/AD_4nXdnJJlVEMr5X-KZzmhmxlDpPVb53LeEmRAmnJ8u8VmumdWvKMfV695WnmELvJ7M9GmVenFl78OmtPzurMas8FfX9fAqXDgrs4IvLiQcWc-zNid-iS-6j4Dnc2SJ6rlI2AWGSCwyReFKjAr07GqoR8d-eLU?key=l7iRX4HZdQ4q0rDC4m7QYg'); background-size: cover; background-position: center;">
+        <div class="banner-content">
+            <h3>Tech Fest - Kalpavikas</h3>
+            <p>Innovation meets excitement</p>
+        </div>
+      </div>
+
+      <div class="carousel-item" style="background-image: url('https://c.ndtvimg.com/gws/ms/best-navratri-garba-events-in-india/assets/4.jpeg?1727954405'); background-size: cover; background-position: center;">
+        <div class="banner-content">
+            <h3>Garba Night</h3>
+            <p>Dance, Dhol & Dazzle!</p>
+        </div>
+      </div>
+
+      <div class="carousel-item" style="background-image: url('https://cdn.sanity.io/images/zoz4y99f/production/5060e0458bfbb1da683896c2dc25473ff8ebc6f3-1882x1059.jpg'); background-size: cover; background-position: center;">
+        <div class="banner-content">
+            <h3>Esports Championship</h3>
+            <p>Game. Compete. Conquer.</p>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-nav prev" onclick="prevSlide()">‹</div>
+    <div class="carousel-nav next" onclick="nextSlide()">›</div>
+    <div class="carousel-dots">
+      <div class="carousel-dot active" onclick="goToSlide(0)"></div>
+      <div class="carousel-dot" onclick="goToSlide(1)"></div>
+      <div class="carousel-dot" onclick="goToSlide(2)"></div>
+      <div class="carousel-dot" onclick="goToSlide(3)"></div>
+    </div>
+  </section>
+
+  <!-- Upcoming Events Section -->
+  <section class="upcoming-events">
+    <div class="section-header">
+      <h2 class="section-title">Upcoming Events</h2>
+      <a href="#" class="view-all">View all →</a>
+    </div>
+    <div class="events-container">
+      
+      <!-- Event Card 1: Argonyx Hackathon -->
+      <div class="event-card">
+        <div class="event-image" style="background-image: url('https://images.pexels.com/photos/3184298/pexels-photo-3184298.jpeg'); background-size: cover; background-position: center;">
+            
+        </div>
+        <div class="event-body">
+            <h3>Argonyx Hackathon</h3>
+            <p class="event-price">₹100 (Round 1); ₹600 (Round 2 facilities)</p>
+            <p class="event-description">Dive into an electrifying two-round hackathon where innovation meets execution! Argonyx '25 begins with an online idea submission round, followed by an overnight offline hackathon at RV University.</p>
+            <div class="event-meta">
+            <span class="event-date">📅 Oct 10–11, 2025</span>
+            <span class="event-time">🕒 3:00 PM onwards</span>
+            <span class="event-location">📍 RV University</span>
+            </div>
+            <button class="event-btn">Register Now</button>
+        </div>
+      </div>
+
+
+      <!-- Event Card 2: CTF -->
+      <div class="event-card">
+        <div class="event-image" style="background-image: url('https://images.stockcake.com/public/8/b/8/8b8a459d-badc-4520-b027-b9d692f3a25a_large/dj-at-party-stockcake.jpg'); background-size: cover; background-position: center;">
+            
+        </div>
+        <div class="event-body">
+            <h3>DJ Night</h3>
+            <p class="event-price">₹100 (Entry)</p>
+            <p class="event-description">Dance the night away with live DJ performances and lights! A high-energy evening you won’t forget.</p>
+            <div class="event-meta">
+            <span class="event-date">📅 Oct 12, 2025</span>
+            <span class="event-time">🕒 8:00 PM onwards</span>
+            <span class="event-location">📍 RV Auditorium</span>
+            </div>
+            <button class="event-btn">Book Spot</button>
+        </div>
+      </div>
+
+      <!-- Event Card 3: Firebase App Jam -->
+      <div class="event-card">
+        <div class="event-image" style="background-image: url('https://images.pexels.com/photos/3184298/pexels-photo-3184298.jpeg'); background-size: cover; background-position: center;">
+            
+        </div>
+        <div class="event-body">
+            <h3>AI & Future Tech Talk</h3>
+            <p class="event-price">Free</p>
+            <p class="event-description">Learn about AI, blockchain, and emerging tech trends from industry experts. Interactive Q&A session included.</p>
+            <div class="event-meta">
+            <span class="event-date">📅 Oct 18, 2025</span>
+            <span class="event-time">🕒 2:00 PM onwards</span>
+            <span class="event-location">📍 RV Seminar Hall</span>
+            </div>
+            <button class="event-btn">Attend</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-left"></div>
+  <div class="footer-contacts">
+    <a href="mailto:stackmasters@rvu.edu.in">stackmasters@rvu.edu.in</a>
+    <a href="https://linkedin.com/company/stackmasters" target="_blank">LinkedIn</a>
+    <a href="https://github.com/stackmasters" target="_blank">GitHub</a>
+  </div>
+  <div class="footer-team">
+    Made with &lt;3 by Stack Masters
+  </div>
+</footer>
+  </section>
+</main>
+
+<!-- VANTA.NET Background -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta/dist/vanta.net.min.js"></script>
+<script>
+    
+  VANTA.NET({
+    el: "#vanta-bg",
+    mouseControls: true,
+    touchControls: true,
+    minHeight: 200.00,
+    minWidth: 200.00,
+    scale: 1.00,
+    scaleMobile: 1.00,
+    color: 0x7b2ff7,
+    backgroundColor: 0x000000,
+    showDots: true,
+    maxDistance: 30.0,
+    spacing: 20.0
+  });
+
+  // Carousel functionality
+  let currentSlide = 0;
+  let autoPlayInterval;
+
+  function initCarousel() {
+    const track = document.querySelector('.carousel-track');
+    const slides = document.querySelectorAll('.carousel-item');
+    const dots = document.querySelectorAll('.carousel-dot');
+    const totalSlides = slides.length;
+
+    if (!track || !slides.length) return;
+
+    function updateCarousel() {
+      track.style.transform = `translateX(-${currentSlide * 100}%)`;
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentSlide);
+      });
+    }
+
+    window.nextSlide = function() {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      updateCarousel();
+    }
+
+    window.prevSlide = function() {
+      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+      updateCarousel();
+    }
+
+    window.goToSlide = function(index) {
+      currentSlide = index;
+      updateCarousel();
+    }
+
+    // Auto-play carousel
+    autoPlayInterval = setInterval(window.nextSlide, 4000);
+
+    // Pause auto-play on hover
+    const carousel = document.querySelector('.banner-carousel');
+    if (carousel) {
+      carousel.addEventListener('mouseenter', () => {
+        clearInterval(autoPlayInterval);
+      });
+      carousel.addEventListener('mouseleave', () => {
+        autoPlayInterval = setInterval(window.nextSlide, 4000);
+      });
+    }
+
+    // Initialize
+    updateCarousel();
+  }
+
+  // Initialize carousel after DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCarousel);
+  } else {
+    initCarousel();
+  }
+
+  // mobile nav toggle
+  function toggleMobileNav() {
+    const nav = document.querySelector('.nav-links');
+    if (!nav) return;
+    if (nav.style.display === 'flex' || getComputedStyle(nav).display === 'flex') {
+      nav.style.display = 'none';
+    } else {
+      nav.style.display = 'flex';
+      nav.style.flexDirection = 'column';
+      nav.style.position = 'absolute';
+      nav.style.top = '64px';
+      nav.style.right = '4%';
+      nav.style.background = 'rgba(0,0,0,0.6)';
+      nav.style.padding = '10px';
+      nav.style.borderRadius = '10px';
+    }
+  }
+
+  // close mobile nav when clicking outside
+  document.addEventListener('click', (e) => {
+    const nav = document.querySelector('.nav-links');
+    const ham = document.querySelector('.hamburger');
+    if (!nav || !ham) return;
+    if (window.innerWidth <= 768) {
+      if (!nav.contains(e.target) && !ham.contains(e.target)) {
+        nav.style.display = 'none';
+      }
+    }
+  });
+</script>
+</body>
+</html>
