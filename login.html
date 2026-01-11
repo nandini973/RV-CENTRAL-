@@ -390,24 +390,25 @@
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vanta/dist/vanta.net.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta/dist/vanta.waves.min.js"></script>
 
   <script>
     const API_URL = 'http://localhost:3000/api';
 
-    VANTA.NET({
+    VANTA.WAVES({
       el: "#vanta-bg",
       mouseControls: true,
       touchControls: true,
+      gyroControls: false,
       minHeight: 200.00,
       minWidth: 200.00,
       scale: 1.00,
       scaleMobile: 1.00,
-      color: 0x7b2ff7,
-      backgroundColor: 0x000000,
-      showDots: true,
-      maxDistance: 30.0,
-      spacing: 20.0
+      color: 0x0a0520,
+      shininess: 20.00,
+      waveHeight: 20.00,
+      waveSpeed: 0.80,
+      zoom: 0.75
     });
 
     function showMessage(text, type) {
@@ -529,4 +530,4 @@
     });
   </script>
 </body>
-</html>
+</html> 
