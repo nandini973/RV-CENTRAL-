@@ -12,15 +12,17 @@
       font-family: system-ui, sans-serif;
     }
 
-    body {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      overflow-x: hidden;
-      background: black;
-      padding-top: 72px;
-    }
+      body {
+    background: #000000;
+    color: white;
+    font-family: system-ui, -apple-system, sans-serif; /* Match index.html */
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding-top: 64px; /* The exact height of your navbar */
+    margin: 0;
+  }
 
     /* ---------- NAVBAR ---------- */
     .navbar {
@@ -38,7 +40,7 @@
       backdrop-filter: blur(8px);
       border-bottom: 1px solid rgba(255,255,255,0.04);
     }
-
+ 
     .nav-left {
       display: flex;
       align-items: center;
@@ -254,6 +256,7 @@
       gap: 60px;
       margin-top: 40px;
       padding-bottom: 60px;
+      flex: 1;
     }
 
     /* Greeting */
@@ -555,11 +558,11 @@
     /* ---------- FOOTER ---------- */
 .footer {
   width: 100%;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(15px);
   border-top: 1px solid rgba(255,255,255,0.1);
   padding: 40px 4%;
-  margin-top: 60px;
+  margin-top: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -580,7 +583,7 @@
 }
 
 .footer-contacts a {
-  color: #00e6ff;
+  color: #cfe3ff;
   text-decoration: none;
   font-size: 1rem;
   font-weight: 500;
@@ -832,8 +835,10 @@
       </div>
 
     </div>
+  </section>
+</main>
 
-    <!-- FOOTER -->
+<!-- FOOTER -->
 <footer class="footer">
   <div class="footer-left"></div>
   <div class="footer-contacts">
@@ -845,27 +850,26 @@
     Made with &lt;3 by Stack Masters
   </div>
 </footer>
-  </section>
-</main>
 
-<!-- VANTA.NET Background -->
+<!-- VANTA.WAVES Background -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vanta/dist/vanta.net.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta/dist/vanta.waves.min.js"></script>
 <script>
     
-  VANTA.NET({
+  VANTA.WAVES({
     el: "#vanta-bg",
     mouseControls: true,
     touchControls: true,
+    gyroControls: false,
     minHeight: 200.00,
     minWidth: 200.00,
     scale: 1.00,
     scaleMobile: 1.00,
-    color: 0x7b2ff7,
-    backgroundColor: 0x000000,
-    showDots: true,
-    maxDistance: 30.0,
-    spacing: 20.0
+    color: 0x0a0520,
+    shininess: 20.00,
+    waveHeight: 20.00,
+    waveSpeed: 0.80,
+    zoom: 0.75
   });
 
   // Carousel functionality
