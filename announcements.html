@@ -19,16 +19,30 @@
       overflow-x: hidden;
       background: #000;
     }
-   
-    body {
+
+     body {
       color: white;
       min-height: 100vh;
       position: relative;
       font-family: sans-serif;
+      padding-top: 64px; /* Essential to prevent content from hiding under navbar */
     }
+
+    body {
+  background: #000000;
+  color: white;
+  font-family: system-ui, -apple-system, sans-serif; /* Match index.html */
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding-top: 64px; /* The exact height of your navbar */
+  margin: 0;
+}
+
    
-    /* Galaxy Canvas - Absolute positioned behind everything */
-    #galaxyCanvas {
+    /* VANTA Background - Absolute positioned behind everything */
+    #vanta-bg {
       position: fixed;
       top: 0;
       left: 0;
@@ -46,7 +60,6 @@
     }
    
     .event-card {
-      background: rgba(30, 35, 60, 0.92);
       border: 1px solid rgba(111,111,255,0.3);
       transition: all 0.3s ease;
       backdrop-filter: blur(12px);
@@ -55,74 +68,311 @@
    
     .event-card:hover {
       transform: translateY(-8px);
-      box-shadow: 0 16px 48px rgba(123,47,247,0.5);
-      border-color: rgba(255, 215, 0, 0.6);
-      background: rgba(40, 45, 70, 0.95);
+      /* Refined purple glow without changing background */
+      box-shadow: 0 12px 32px rgba(123,47,247,0.35), 0 0 0 6px rgba(111,111,255,0.10);
+      border-color: rgba(111,111,255,0.4);
     }
    
-    header {
-      background: rgba(17, 24, 39, 0.88) !important;
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
-    }
+    
+   
    
     .search-input, .filter-select {
-      background: rgba(30, 35, 60, 0.85) !important;
+      background: rgba(10, 12, 25, 0.6) !important; /* darker, transparent */
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.16);
+      color: #e5e7eb;
+      transition: all 0.25s ease;
+    }
+
+    .filter-select:hover {
+      border-color: #6f6fff;
+      box-shadow: 0 0 0 6px rgba(111,111,255,0.10);
+      background: rgba(16, 18, 32, 0.7) !important;
+    }
+
+    .filter-select:focus {
+      border-color: #6f6fff !important;
+      outline: none;
+      box-shadow: 0 0 0 8px rgba(111,111,255,0.12);
+      background: rgba(18, 20, 36, 0.75) !important;
+    }
+
+    .search-input::placeholder {
+      color: rgba(255,255,255,0.55);
+    }
+
+    .search-input:focus {
+      border-color: #6f6fff !important;
+      background: rgba(18, 20, 36, 0.75) !important;
+      box-shadow: 0 0 0 6px rgba(111,111,255,0.10);
+      outline: none;
+    }
+
+    /* Gradient page title to match index feel */
+    .page-title {
+      background: linear-gradient(90deg, #b388ff, #00e6ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
    
-    footer {
-      background: rgba(17, 24, 39, 0.85) !important;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+    .footer {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(15px);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding: 40px 4%;
+      margin-top: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 30px;
     }
+
+    .footer-left {
+      flex: 1;
+    }
+
+    .footer-contacts {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+      flex: 1;
+      justify-content: center;
+    }
+
+    .footer-contacts a {
+      color: #cfe3ff;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 500;
+      transition: color 0.3s ease, transform 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-contacts a:hover {
+      color: #ff6ec7;
+      transform: translateY(-2px);
+    }
+
+    .footer-team {
+      color: rgba(255,255,255,0.9);
+      font-size: 1rem;
+      font-weight: 500;
+      flex: 1;
+      text-align: right;
+    }
+
+    @media (max-width: 768px) {
+      .footer {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .footer-left {
+        display: none;
+      }
+
+      .footer-contacts {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .footer-team {
+        text-align: center;
+      }
+    }
+
+    /* ---------- NAVBAR (Exact Copy from Index.html) ---------- */
+.navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 4%;
+      z-index: 999;
+      background: linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.15));
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+ 
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .nav-logo {
+      width: 46px;
+      height: 46px;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .brand {
+      color: white;
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: 0.6px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: rgba(220,220,220,0.9);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 8px 10px;
+      border-radius: 8px;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      background: rgba(111,111,255,0.12);
+      color: white;
+    }
+
+    .nav-right {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .btn-login {
+      font-size: 0.95rem;
+      color: #dcdcff;
+      background: transparent;
+      border: 2px solid #6f6fff;
+      border-radius: 8px;
+      padding: 8px 14px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .btn-login:hover {
+      background: #6f6fff;
+      color: white;
+      box-shadow: 0 0 12px rgba(111,111,255,0.4);
+    }
+
+    .hamburger {
+      display: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.03);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    /* Search Bar */
+    .nav-search {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin: 0 20px;
+    }
+
+    .nav-search input {
+      padding: 6px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.05);
+      color: white;
+      outline: none;
+      transition: all 0.3s ease;
+      width: 180px;
+    }
+
+    .nav-search input::placeholder {
+      color: rgba(255,255,255,0.6);
+    }
+
+    .nav-search input:focus {
+      background: rgba(255,255,255,0.1);
+      border-color: #6f6fff;
+    }
+
+    .nav-search button {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: white;
+      font-size: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .nav-search { display: none; }
+      .brand { display: none; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+
+
+
+    
   </style>
 </head>
 <body>
-  <!-- Galaxy Background Canvas -->
-  <canvas id="galaxyCanvas"></canvas>
+<!-- VANTA.WAVES Background -->
+<div id="vanta-bg"></div>
+<!-- NAVBAR -->
+<header class="navbar" role="navigation" aria-label="Main navigation">
+  <div class="nav-left">
+    <img src="https://kalpavikas-rvu.vercel.app/_next/image?url=%2Frvu-logo.png&w=256&q=75" alt="RV logo" class="nav-logo">
+    <div class="brand">RV Central</div>
+  </div>
+
+  <div class="nav-search">
+    <input type="text" placeholder="Search..." />
+    <button aria-label="Search"></button>
+  </div>
+
+  <nav class="nav-links" aria-label="Primary">
+    <a href="./index.html" onclick="document.querySelector('.hero').scrollIntoView({behavior:'smooth'})">Home</a>
+    <a href="./clubs.html">Clubs</a>
+    <a href="./events.html">Events</a>
+    <a href="./announcements.html">Announcements</a>
+    <a href="#contact">Contact Us</a>
+  </nav>
+
+  <div class="nav-right">
+  <a href="./login.html" class="btn-login">Login</a>
+  <a href="./signup.html" class="btn-login">Sign Up</a>
+  <div class="hamburger" aria-hidden="true">
+    <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect y="1" width="18" height="2" rx="1" fill="rgba(220,220,220,0.9)"/>
+      <rect y="6" width="18" height="2" rx="1" fill="rgba(220,220,220,0.9)"/>
+      <rect y="11" width="18" height="2" rx="1" fill="rgba(220,220,220,0.9)"/>
+    </svg>
+  </div>
+</div>
+</header>
 
 
   <!-- Main Content Wrapper -->
   <div class="main-wrapper">
-    <!-- Header -->
-    <header class="fixed top-0 left-0 w-full shadow-md z-50">
-      <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-full bg-yellow-400 flex items-center justify-center font-bold text-gray-900">RV</div>
-          <h1 class="text-2xl font-bold text-yellow-400">RV Central</h1>
-        </div>
-        <nav class="flex items-center gap-6">
-          <a href="#" class="hover:text-yellow-400 transition">Home</a>
-          <a href="#" class="hover:text-yellow-400 transition">Events</a>
-          <a href="#" class="text-yellow-400 font-semibold">Announcements</a>
-          <a href="#" class="hover:text-yellow-400 transition">Leaderboard</a>
-        </nav>
-      </div>
-    </header>
+
 
 
     <main class="pt-28 pb-20 max-w-5xl mx-auto px-6">
       <!-- Title -->
       <section class="text-center mb-12">
-        <h2 class="text-4xl font-bold mb-2 text-yellow-400">Campus Announcements</h2>
+        <h2 class="text-4xl font-bold mb-2 page-title">Campus Announcements</h2>
         <p class="text-gray-200 text-lg">Stay updated with the latest volunteer calls and club recruitments across RV University!</p>
       </section>
-
-
-      <!-- Search and Filter -->
-      <section class="mb-12">
-        <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-          <input type="text" placeholder="Search announcements..." class="search-input w-full md:w-1/2 p-3 rounded-lg text-gray-200 border border-gray-600 focus:ring-2 focus:ring-yellow-400 focus:outline-none">
-          <select class="filter-select p-3 rounded-lg text-gray-200 border border-gray-600 focus:ring-2 focus:ring-yellow-400 focus:outline-none">
-            <option value="all">All Announcements</option>
-            <option value="events">Event Volunteers</option>
-            <option value="clubs">Club Recruitments</option>
-          </select>
-        </div>
-      </section>
-
 
       <!-- All Announcements -->
       <section id="announcements" x-data="announcementsData()">
@@ -133,14 +383,14 @@
           <!-- Volunteer Announcements -->
           <template x-for="(announcement, index) in volunteerAnnouncements" :key="'volunteer-' + index">
             <div x-data="{ expanded: false }" class="event-card rounded-xl p-6 shadow-lg border transition transform duration-300">
-              <h4 class="text-lg font-semibold text-yellow-300 cursor-pointer flex justify-between items-center" @click="expanded = !expanded">
+              <h4 class="text-lg font-semibold text-blue-300 cursor-pointer flex justify-between items-center" @click="expanded = !expanded">
                 <span x-text="announcement.title"></span>
                 <svg :class="{'rotate-180': expanded}" class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
               </h4>
               <div x-show="expanded" x-transition class="mt-3 space-y-2 text-sm text-gray-200">
                 <p x-text="announcement.description"></p>
                 <p class="text-gray-400" x-text="announcement.date"></p>
-                <a href="#" class="inline-block text-yellow-400 hover:text-yellow-300 font-semibold transition">Apply as Volunteer →</a>
+                <a href="#" class="inline-block text-blue-400 hover:text-blue-300 font-semibold transition">Apply as Volunteer →</a>
               </div>
             </div>
           </template>
@@ -149,14 +399,14 @@
           <!-- Club Recruitment Announcements -->
           <template x-for="(club, index) in clubAnnouncements" :key="'club-' + index">
             <div x-data="{ expanded: false }" class="event-card rounded-xl p-6 shadow-lg border transition transform duration-300">
-              <h4 class="text-lg font-semibold text-yellow-300 cursor-pointer flex justify-between items-center" @click="expanded = !expanded">
+              <h4 class="text-lg font-semibold text-blue-300 cursor-pointer flex justify-between items-center" @click="expanded = !expanded">
                 <span x-text="club.title"></span>
                 <svg :class="{'rotate-180': expanded}" class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
               </h4>
               <div x-show="expanded" x-transition class="mt-3 space-y-2 text-sm text-gray-200">
                 <p x-text="club.description"></p>
                 <p class="text-gray-400" x-text="club.date"></p>
-                <a href="#" class="inline-block text-yellow-400 hover:text-yellow-300 font-semibold transition">Apply Now →</a>
+                <a href="#" class="inline-block text-blue-400 hover:text-blue-300 font-semibold transition">Apply Now →</a>
               </div>
             </div>
           </template>
@@ -165,135 +415,71 @@
     </main>
 
 
-    <!-- Footer -->
-    <footer class="border-t border-gray-700 py-6 mt-16 text-center text-gray-300 text-sm">
-      <p>© 2025 RV University • RV Central</p>
-      <p>Made with ❤️ by the RV Central Dev Team</p>
-    </footer>
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-left"></div>
+  <div class="footer-contacts">
+    <a href="mailto:stackmasters@rvu.edu.in">stackmasters@rvu.edu.in</a>
+    <a href="https://linkedin.com/company/stackmasters" target="_blank">LinkedIn</a>
+    <a href="https://github.com/stackmasters" target="_blank">GitHub</a>
+  </div>
+  <div class="footer-team">
+    Made with &lt;3 by Stack Masters
+  </div>
+</footer>
   </div>
 
 
-  <!-- Galaxy Effect Script - Using vanilla Canvas for guaranteed compatibility -->
+  <!-- VANTA.WAVES Background -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta/dist/vanta.waves.min.js"></script>
   <script>
-    // Simple but beautiful galaxy effect
-    const canvas = document.getElementById('galaxyCanvas');
-    const ctx = canvas.getContext('2d');
-   
-    let width = canvas.width = window.innerWidth;
-    let height = canvas.height = window.innerHeight;
-   
-    window.addEventListener('resize', () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-      initStars();
+      
+    VANTA.WAVES({
+      el: "#vanta-bg",
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      minHeight: 200.00,
+      minWidth: 200.00,
+      scale: 1.00,
+      scaleMobile: 1.00,
+      color: 0x0a0520,
+      shininess: 20.00,
+      waveHeight: 20.00,
+      waveSpeed: 0.80,
+      zoom: 0.75
     });
-   
-    // Star particles
-    const stars = [];
-    const numStars = 800;
-   
-    class Star {
-      constructor() {
-        this.reset();
-      }
-     
-      reset() {
-        this.x = Math.random() * width;
-        this.y = Math.random() * height;
-        this.z = Math.random() * 1000;
-        this.size = Math.random() * 2;
-        this.speed = Math.random() * 0.5 + 0.1;
-        this.opacity = Math.random();
-        this.twinkleSpeed = Math.random() * 0.02 + 0.01;
-       
-        // Color variations - blues, purples, whites
-        const colorType = Math.random();
-        if (colorType < 0.4) {
-          this.color = `rgba(100, 150, 255, ${this.opacity})`;
-        } else if (colorType < 0.7) {
-          this.color = `rgba(200, 150, 255, ${this.opacity})`;
-        } else {
-          this.color = `rgba(255, 255, 255, ${this.opacity})`;
-        }
-      }
-     
-      update() {
-        this.z -= this.speed;
-        if (this.z <= 0) {
-          this.reset();
-          this.z = 1000;
-        }
-       
-        // Twinkle effect
-        this.opacity += this.twinkleSpeed;
-        if (this.opacity >= 1 || this.opacity <= 0.2) {
-          this.twinkleSpeed = -this.twinkleSpeed;
-        }
-      }
-     
-      draw() {
-        const sx = (this.x - width / 2) * (1000 / this.z) + width / 2;
-        const sy = (this.y - height / 2) * (1000 / this.z) + height / 2;
-        const size = (1 - this.z / 1000) * this.size * 3;
-       
-        if (sx >= 0 && sx <= width && sy >= 0 && sy <= height) {
-          ctx.beginPath();
-         
-          // Update color with current opacity
-          const colorType = this.color.includes('100, 150') ? '100, 150, 255' :
-                           this.color.includes('200, 150') ? '200, 150, 255' : '255, 255, 255';
-          ctx.fillStyle = `rgba(${colorType}, ${this.opacity})`;
-         
-          // Draw star with glow
-          ctx.shadowBlur = size * 3;
-          ctx.shadowColor = ctx.fillStyle;
-          ctx.arc(sx, sy, size, 0, Math.PI * 2);
-          ctx.fill();
-         
-          // Add cross flare for bright stars
-          if (size > 1.5) {
-            ctx.shadowBlur = 0;
-            ctx.strokeStyle = ctx.fillStyle;
-            ctx.lineWidth = 0.5;
-            ctx.beginPath();
-            ctx.moveTo(sx - size * 2, sy);
-            ctx.lineTo(sx + size * 2, sy);
-            ctx.moveTo(sx, sy - size * 2);
-            ctx.lineTo(sx, sy + size * 2);
-            ctx.stroke();
-          }
-        }
+
+    // mobile nav toggle
+    function toggleMobileNav() {
+      const nav = document.querySelector('.nav-links');
+      if (!nav) return;
+      if (nav.style.display === 'flex' || getComputedStyle(nav).display === 'flex') {
+        nav.style.display = 'none';
+      } else {
+        nav.style.display = 'flex';
+        nav.style.flexDirection = 'column';
+        nav.style.position = 'absolute';
+        nav.style.top = '64px';
+        nav.style.right = '4%';
+        nav.style.background = 'rgba(0,0,0,0.6)';
+        nav.style.padding = '10px';
+        nav.style.borderRadius = '10px';
       }
     }
-   
-    function initStars() {
-      stars.length = 0;
-      for (let i = 0; i < numStars; i++) {
-        stars.push(new Star());
+
+    // close mobile nav when clicking outside
+    document.addEventListener('click', (e) => {
+      const nav = document.querySelector('.nav-links');
+      const ham = document.querySelector('.hamburger');
+      if (!nav || !ham) return;
+      if (window.innerWidth <= 768) {
+        if (!nav.contains(e.target) && !ham.contains(e.target)) {
+          nav.style.display = 'none';
+        }
       }
-    }
-   
-    function animate() {
-      // Dark blue/purple gradient background
-      const gradient = ctx.createRadialGradient(width/2, height/2, 0, width/2, height/2, width);
-      gradient.addColorStop(0, '#0a0e27');
-      gradient.addColorStop(0.5, '#050a1e');
-      gradient.addColorStop(1, '#020208');
-      ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, width, height);
-     
-      // Update and draw stars
-      stars.forEach(star => {
-        star.update();
-        star.draw();
-      });
-     
-      requestAnimationFrame(animate);
-    }
-   
-    // Initialize and start animation
-    initStars();
-    animate();
+    });
   </script>
 
 
