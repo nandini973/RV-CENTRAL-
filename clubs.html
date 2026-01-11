@@ -8,7 +8,7 @@
     <style>
         :root {
             --color-primary: #8a2be2;
-            --color-secondary: #ff006e;
+            --color-secondary: #00a2ff;
             --color-bg-dark: #0a0014;
             --color-card-bg: rgba(26, 11, 46, 0.4);
             --color-text-light: #f3f3f3;
@@ -22,115 +22,151 @@
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background: radial-gradient(ellipse at top, #1a0b2e 0%, #0a0014 50%, #000000 100%);
+            font-family: system-ui, sans-serif;
             color: var(--color-text-light);
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
+            display: flex;
+            flex-direction: column;
+            background: black;
+            padding-top: 72px;
         }
 
-        /* ===== ANIMATED BACKGROUND FIGURES ===== */
-        .animated-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: none;
-            overflow: hidden;
-        }
+        /* ---------- NAVBAR ---------- */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 4%;
+      z-index: 999;
+      background: linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.15));
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
 
-        .figure {
-            position: absolute;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            opacity: 0.15;
-            animation: float 20s infinite ease-in-out;
-        }
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
 
-        .figure:nth-child(1) {
-            background: linear-gradient(135deg, #8a2be2, #ff006e);
-            top: 10%;
-            left: 15%;
-            animation-delay: 0s;
-            animation-duration: 25s;
-        }
+    .nav-logo {
+      width: 46px;
+      height: 46px;
+      object-fit: contain;
+      border-radius: 8px;
+    }
 
-        .figure:nth-child(2) {
-            background: linear-gradient(135deg, #00d4ff, #8a2be2);
-            top: 60%;
-            left: 80%;
-            animation-delay: 2s;
-            animation-duration: 30s;
-        }
+    .brand {
+      color: white;
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: 0.6px;
+    }
 
-        .figure:nth-child(3) {
-            background: linear-gradient(135deg, #ff006e, #ffd700);
-            top: 30%;
-            left: 70%;
-            animation-delay: 4s;
-            animation-duration: 28s;
-        }
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+    }
 
-        .figure:nth-child(4) {
-            background: linear-gradient(135deg, #00ff88, #00d4ff);
-            top: 75%;
-            left: 20%;
-            animation-delay: 6s;
-            animation-duration: 32s;
-        }
+    .nav-links a {
+      color: rgba(220,220,220,0.9);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 8px 10px;
+      border-radius: 8px;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
 
-        .figure:nth-child(5) {
-            background: linear-gradient(135deg, #ffd700, #ff006e);
-            top: 45%;
-            left: 50%;
-            animation-delay: 8s;
-            animation-duration: 26s;
-        }
+    .nav-links a:hover {
+      background: rgba(111,111,255,0.12);
+      color: white;
+    }
 
-        .figure:nth-child(6) {
-            background: linear-gradient(135deg, #8a2be2, #00ff88);
-            top: 20%;
-            left: 35%;
-            animation-delay: 10s;
-            animation-duration: 29s;
-        }
+    .nav-right {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
 
-        .figure:nth-child(7) {
-            background: linear-gradient(135deg, #00d4ff, #ff006e);
-            top: 85%;
-            left: 60%;
-            animation-delay: 12s;
-            animation-duration: 27s;
-        }
+    .btn-login {
+      font-size: 0.95rem;
+      color: #dcdcff;
+      background: transparent;
+      border: 2px solid #6f6fff;
+      border-radius: 8px;
+      padding: 8px 14px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
 
-        .figure:nth-child(8) {
-            background: linear-gradient(135deg, #ff006e, #8a2be2);
-            top: 50%;
-            left: 10%;
-            animation-delay: 14s;
-            animation-duration: 31s;
-        }
+    .btn-login:hover {
+      background: #6f6fff;
+      color: white;
+      box-shadow: 0 0 12px rgba(111,111,255,0.4);
+    }
 
-        @keyframes float {
-            0%, 100% {
-                transform: translate(0, 0) scale(1);
-            }
-            25% {
-                transform: translate(30px, -50px) scale(1.1);
-            }
-            50% {
-                transform: translate(-20px, -80px) scale(0.9);
-            }
-            75% {
-                transform: translate(40px, -30px) scale(1.05);
-            }
-        }
+    .hamburger {
+      display: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.03);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
 
-        /* ===== CLUB NAVBAR ===== */
+    /* Search Bar */
+    .nav-search {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin: 0 20px;
+    }
+
+    .nav-search input {
+      padding: 6px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.05);
+      color: white;
+      outline: none;
+      transition: all 0.3s ease;
+      width: 180px;
+    }
+
+    .nav-search input::placeholder {
+      color: rgba(255,255,255,0.6);
+    }
+
+    .nav-search input:focus {
+      background: rgba(255,255,255,0.1);
+      border-color: #6f6fff;
+    }
+
+    .nav-search button {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: white;
+      font-size: 1rem;
+    }
+
+    
+
+    @media (max-width: 768px) {
+      .nav-search { display: none; }
+      .brand { display: none; }
+    }
+
         .navbar-section {
             position: relative;
             z-index: 10;
@@ -145,19 +181,22 @@
         .page-title {
             font-size: 3rem;
             font-weight: 700;
-            color: var(--color-primary);
-            text-shadow: 0 0 20px var(--color-secondary);
+            background: linear-gradient(90deg, #b388ff, #00e6ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             letter-spacing: 4px;
             text-transform: uppercase;
-            animation: glow 2s ease-in-out infinite alternate;
+            animation: fadeInUp 0.8s ease;
         }
 
-        @keyframes glow {
+        @keyframes fadeInUp {
             from {
-                text-shadow: 0 0 20px var(--color-secondary), 0 0 30px var(--color-primary);
+                opacity: 0;
+                transform: translateY(30px);
             }
             to {
-                text-shadow: 0 0 30px var(--color-secondary), 0 0 40px var(--color-primary);
+                opacity: 1;
+                transform: translateY(0);
             }
         }
 
@@ -243,11 +282,11 @@
             padding: 5px;
         }
 
-        .club-card:hover .club-logo-circle {
+        /* .club-card:hover .club-logo-circle {
             border-color: var(--color-secondary);
             box-shadow: 0 0 30px var(--color-primary);
             transform: rotate(360deg);
-        }
+        } */
 
         .club-logo {
             width: 100%;
@@ -277,11 +316,15 @@
             max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
+            min-height: calc(100vh - 72px);
+            flex: 1;
         }
 
         .dashboard-section.active {
-            display: block;
+            display: flex; /* Changed from block to flex to ensure it fills space */
+            flex-direction: column;
             animation: fadeIn 0.5s ease-in;
+            min-height: 100vh; /* Ensures it takes up at least the full screen */
         }
 
         @keyframes fadeIn {
@@ -299,9 +342,9 @@
         }
 
         .back-btn {
-            background: rgba(138, 43, 226, 0.2);
-            border: 2px solid var(--color-primary);
-            color: var(--color-text-light);
+            background: rgba(107, 33, 168, 0.85);
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            color: rgba(255, 255, 255, 0.95);
             padding: 12px 30px;
             border-radius: 50px;
             cursor: pointer;
@@ -312,13 +355,16 @@
         }
 
         .back-btn:hover {
-            background: var(--color-primary);
-            transform: scale(1.05);
+            background: rgba(138, 43, 226, 0.95);
+            border-color: rgba(138, 43, 226, 0.6);
+            box-shadow: 0 8px 24px rgba(138, 43, 226, 0.3);
         }
 
         .club-title-header {
             font-size: 1.8rem;
-            color: var(--color-secondary);
+            background: linear-gradient(90deg, #b388ff, #00e6ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             text-transform: uppercase;
             letter-spacing: 2px;
         }
@@ -424,9 +470,9 @@
         }
 
         .add-btn {
-            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
-            border: none;
-            color: white;
+            background: rgba(107, 33, 168, 0.85);
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            color: rgba(255, 255, 255, 0.95);
             padding: 12px 28px;
             border-radius: 50px;
             cursor: pointer;
@@ -437,11 +483,13 @@
             align-items: center;
             gap: 8px;
             margin-top: auto;
+            backdrop-filter: blur(10px);
         }
 
         .add-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 30px rgba(138, 43, 226, 0.4);
+            background: rgba(138, 43, 226, 0.95);
+            border-color: rgba(138, 43, 226, 0.6);
+            box-shadow: 0 8px 24px rgba(138, 43, 226, 0.3);
         }
 
         .feature-list {
@@ -494,6 +542,77 @@
             }
         }
 
+        /* ---------- FOOTER ---------- */
+        .footer {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(15px);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding: 40px 4%;
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .footer-left {
+            flex: 1;
+        }
+
+        .footer-contacts {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .footer-contacts a {
+            color: #cfe3ff;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: color 0.3s ease, transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-contacts a:hover {
+            color: #ff6ec7;
+            transform: translateY(-2px);
+        }
+
+        .footer-team {
+            color: rgba(255,255,255,0.9);
+            font-size: 1rem;
+            font-weight: 500;
+            flex: 1;
+            text-align: right;
+        }
+
+        @media (max-width: 768px) {
+            .footer {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .footer-left {
+                display: none;
+            }
+
+            .footer-contacts {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .footer-team {
+                text-align: center;
+            }
+        }
+
         @media (max-width: 768px) {
             .page-title {
                 font-size: 2rem;
@@ -518,22 +637,90 @@
                 font-size: 2rem;
             }
         }
+
+            /* gemini fix */
+    /* Unified Search Bar Fix */
+.nav-search {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0 20px;
+  height: 100%; /* Ensures vertical alignment in the navbar */
+}
+
+.nav-search input {
+  /* Explicit sizing to override Tailwind defaults */
+  width: 180px;
+  height: 32px; 
+  padding: 0 12px; /* Vertical padding 0 to prevent stretching */
+  
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+  outline: none;
+  font-size: 0.85rem;
+  
+  /* Critical for cross-page consistency */
+  box-sizing: border-box !important;
+  line-height: 1.2 !important;
+  transition: all 0.3s ease;
+}
+
+.nav-search input:focus {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #6f6fff !important;
+  width: 200px; /* Slight growth on focus */
+}
+
+.nav-search button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+}
     </style>
 </head>
 <body>
 
-    <!-- ANIMATED BACKGROUND FIGURES -->
-    <div class="animated-bg">
-        <div class="figure"></div>
-        <div class="figure"></div>
-        <div class="figure"></div>
-        <div class="figure"></div>
-        <div class="figure"></div>
-        <div class="figure"></div>
-        <div class="figure"></div>
-        <div class="figure"></div>
-    </div>
+    <!-- NAVBAR -->
+    <!-- NAVBAR -->
+<header class="navbar" role="navigation" aria-label="Main navigation">
+  <div class="nav-left">
+    <img src="https://kalpavikas-rvu.vercel.app/_next/image?url=%2Frvu-logo.png&w=256&q=75" alt="RV logo" class="nav-logo">
+    <div class="brand">RV Central</div>
+  </div>
 
+  <div class="nav-search">
+    <input type="text" placeholder="Search..." />
+    <button aria-label="Search"></button>
+  </div>
+
+  <nav class="nav-links" aria-label="Primary">
+    <a href="./index.html" onclick="document.querySelector('.hero').scrollIntoView({behavior:'smooth'})">Home</a>
+    <a href="./clubs.html">Clubs</a>
+    <a href="./events.html">Events</a>
+    <a href="./announcements.html">Announcements</a>
+    <a href="#contact">Contact Us</a>
+  </nav>
+
+  <div class="nav-right">
+  <a href="./login.html" class="btn-login">Login</a>
+  <a href="./signup.html" class="btn-login">Sign Up</a>
+  <div class="hamburger" aria-hidden="true">
+    <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect y="1" width="18" height="2" rx="1" fill="rgba(220,220,220,0.9)"/>
+      <rect y="6" width="18" height="2" rx="1" fill="rgba(220,220,220,0.9)"/>
+      <rect y="11" width="18" height="2" rx="1" fill="rgba(220,220,220,0.9)"/>
+    </svg>
+  </div>
+</div>
+</header>
     <!-- CLUB NAVBAR -->
     <div id="navbar-section" class="navbar-section">
         <header class="page-header">
@@ -798,12 +985,19 @@
             document.getElementById('navbar-section').style.display = 'none';
             document.getElementById('dashboard-section').classList.add('active');
             document.getElementById('current-club-name').textContent = clubName;
+            
+            // Fix: Force background to recalculate height
+            window.dispatchEvent(new Event('resize'));
+            window.scrollTo(0, 0);
         }
 
         // Show navbar
         function showNavbar() {
             document.getElementById('navbar-section').style.display = 'block';
             document.getElementById('dashboard-section').classList.remove('active');
+            
+            // Fix: Force background to recalculate height
+            window.dispatchEvent(new Event('resize'));
         }
 
         // Cursor spotlight effect on cards
@@ -826,6 +1020,40 @@
                     }
                 });
             });
+        });
+    </script>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-left"></div>
+        <div class="footer-contacts">
+            <a href="mailto:stackmasters@rvu.edu.in">stackmasters@rvu.edu.in</a>
+            <a href="https://linkedin.com/company/stackmasters" target="_blank">LinkedIn</a>
+            <a href="https://github.com/stackmasters" target="_blank">GitHub</a>
+        </div>
+        <div class="footer-team">
+            Made with &lt;3 by Stack Masters
+        </div>
+    </footer>
+
+    <!-- VANTA.WAVES Background -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta/dist/vanta.waves.min.js"></script>
+    <script>
+        VANTA.WAVES({
+            el: "body",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x0a0520,
+            shininess: 20.00,
+            waveHeight: 20.00,
+            waveSpeed: 0.80,
+            zoom: 0.75
         });
     </script>
 </body>
