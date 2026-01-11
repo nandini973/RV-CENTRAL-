@@ -15,41 +15,219 @@
 
     html, body {
       width: 100%;
-      height: 100%;
+      min-height: 100vh; /* Changed from height: 100% to allow expansion */
       overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
     }
 
 
     body {
-      background: #000000;
+  background: #000000;
+  color: white;
+  font-family: system-ui, -apple-system, sans-serif; /* Match index.html */
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding-top: 64px; /* The exact height of your navbar */
+  margin: 0;
+}
+
+    /* ---------- NAVBAR ---------- */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 4%;
+      z-index: 999;
+      background: linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.15));
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .navbar a, .navbar button {
+  text-decoration: none !important;
+  line-height: normal;
+}
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .nav-logo {
+      width: 46px;
+      height: 46px;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .brand {
       color: white;
-      font-family: 'Inter', sans-serif;
-      position: relative;
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: 0.6px;
     }
 
-
-    /* Galaxy Background Container - FIXED */
-    #galaxy-canvas {
-      position: fixed !important;
-      top: 0 !important;
-      left: 0 !important;
-      width: 100vw !important;
-      height: 100vh !important;
-      z-index: 0 !important;
-      pointer-events: auto !important;
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      align-items: center;
     }
 
+    .nav-links a {
+      color: rgba(220,220,220,0.9);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 8px 10px;
+      border-radius: 8px;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      background: rgba(111,111,255,0.12);
+      color: white;
+    }
+
+    .nav-right {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .btn-login {
+      font-size: 0.95rem;
+      color: #dcdcff;
+      background: transparent;
+      border: 2px solid #6f6fff;
+      border-radius: 8px;
+      padding: 8px 14px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .btn-login:hover {
+      background: #6f6fff;
+      color: white;
+      box-shadow: 0 0 12px rgba(111,111,255,0.4);
+    }
+
+    .hamburger {
+      display: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.03);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    /* Search Bar */
+    .nav-search {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin: 0 20px;
+    }
+
+    .nav-search input {
+      padding: 6px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.05);
+      color: white;
+      outline: none;
+      transition: all 0.3s ease;
+      width: 180px;
+    }
+
+    .nav-search input::placeholder {
+      color: rgba(255,255,255,0.6);
+    }
+
+    .nav-search input:focus {
+      background: rgba(255,255,255,0.1);
+      border-color: #6f6fff;
+    }
+
+    .nav-search button {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: white;
+      font-size: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .nav-search { display: none; }
+      .brand { display: none; }
+    }
+
+        .navbar-section {
+            position: relative;
+            z-index: 10;
+            padding: 40px 20px;
+        }
+
+    /* gemini fix */
+    /* Unified Search Bar Fix */
+.nav-search {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0 20px;
+  height: 100%; /* Ensures vertical alignment in the navbar */
+}
+
+.nav-search input {
+  /* Explicit sizing to override Tailwind defaults */
+  width: 180px;
+  height: 32px; 
+  padding: 0 12px; /* Vertical padding 0 to prevent stretching */
+  
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+  outline: none;
+  font-size: 0.85rem;
+  
+  /* Critical for cross-page consistency */
+  box-sizing: border-box !important;
+  line-height: 1.2 !important;
+  transition: all 0.3s ease;
+}
+
+.nav-search input:focus {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #6f6fff !important;
+  width: 200px; /* Slight growth on focus */
+}
+ 
+.nav-search button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+}
 
     /* Content Layer */
     .content-layer {
       position: relative;
       z-index: 10;
-      pointer-events: none;
-    }
-
-
-    .content-layer > * {
-      pointer-events: auto;
     }
 
 
@@ -80,10 +258,24 @@
 
 
     .gradient-title {
-      background: linear-gradient(90deg, #a78bfa, #fbbf24);
+      background: linear-gradient(90deg, #b388ff, #00e6ff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      color: transparent;
+    }
+
+    .section-heading {
+      background: linear-gradient(90deg, #b388ff, #00e6ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .text-yellow-300 {
+      color: #b388ff !important;
+      background: none;
     }
 
 
@@ -94,35 +286,115 @@
     }
 
 
-    footer {
-      background-color: rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(10px);
-    }
+    /* ---------- FOOTER ---------- */
+.footer {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(15px);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding: 40px 4%;
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.footer-left {
+  flex: 1;
+}
+
+.footer-contacts {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  flex: 1;
+  justify-content: center;
+}
+
+.footer-contacts a {
+  color: #cfe3ff;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: color 0.3s ease, transform 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-contacts a:hover {
+  color: #ff6ec7;
+  transform: translateY(-2px);
+}
+
+.footer-team {
+  color: rgba(255,255,255,0.9);
+  font-size: 1rem;
+  font-weight: 500;
+  flex: 1;
+  text-align: right;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .footer-left {
+    display: none;
+  }
+
+  .footer-contacts {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .footer-team {
+    text-align: center;
+  }
+}
   </style>
 </head>
 
 
 <body>
-  <!-- Galaxy Background Canvas -->
-  <canvas id="galaxy-canvas"></canvas>
-
-
   <div class="content-layer">
     <!-- Header -->
-    <header class="fixed top-0 left-0 w-full shadow-md z-50">
-      <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-full bg-yellow-400 flex items-center justify-center font-bold text-gray-900">RV</div>
-          <h1 class="text-2xl font-bold text-yellow-400">RV Central</h1>
-        </div>
-        <nav class="flex items-center gap-6">
-          <a href="/" class="hover:text-yellow-400 transition">Home</a>
-          <a href="/events" class="text-yellow-400 font-semibold">Events</a>
-          <a href="/clubs" class="hover:text-yellow-400 transition">Clubs</a>
-          <a href="/leaderboard" class="hover:text-yellow-400 transition">Leaderboard</a>
-        </nav>
-      </div>
-    </header>
+    <!-- NAVBAR -->
+<header class="navbar" role="navigation" aria-label="Main navigation">
+  <div class="nav-left">
+    <img src="https://kalpavikas-rvu.vercel.app/_next/image?url=%2Frvu-logo.png&w=256&q=75" alt="RV logo" class="nav-logo">
+    <div class="brand">RV Central</div>
+  </div>
+
+  <div class="nav-search">
+    <input type="text" placeholder="Search..." />
+    <button aria-label="Search"></button>
+  </div>
+
+  <nav class="nav-links" aria-label="Primary">
+    <a href="./index.html" onclick="document.querySelector('.hero').scrollIntoView({behavior:'smooth'})">Home</a>
+    <a href="./clubs.html">Clubs</a>
+    <a href="./events.html">Events</a>
+    <a href="./announcements.html">Announcements</a>
+    <a href="#contact">Contact Us</a>
+  </nav>
+
+  <div class="nav-right">
+  <a href="./login.html" class="btn-login">Login</a>
+  <a href="./signup.html" class="btn-login">Sign Up</a>
+  <div class="hamburger" aria-hidden="true">
+    <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect y="1" width="18" height="2" rx="1" fill="rgba(220,220,220,0.9)"/>
+      <rect y="6" width="18" height="2" rx="1" fill="rgba(220,220,220,0.9)"/>
+      <rect y="11" width="18" height="2" rx="1" fill="rgba(220,220,220,0.9)"/>
+    </svg>
+  </div>
+</div>
+</header>
 
 
     <!-- Main Content -->
@@ -136,7 +408,7 @@
 
       <!-- Upcoming Events -->
       <section id="upcoming-events" class="mb-16">
-        <h3 class="text-3xl font-semibold mb-6 text-yellow-300">Upcoming Events</h3>
+        <h3 class="text-3xl font-semibold mb-6 section-heading">Upcoming Events</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
 
@@ -180,7 +452,7 @@
 
       <!-- Past Events -->
       <section id="past-events">
-        <h3 class="text-3xl font-semibold mb-6 text-yellow-300">Past Events</h3>
+        <h3 class="text-3xl font-semibold mb-6 section-heading">Past Events</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <!-- Past Event Cards -->
           <div class="event-card rounded-2xl shadow-lg overflow-hidden">
@@ -219,226 +491,45 @@
     </main>
 
 
-    <!-- Footer -->
-    <footer class="border-t border-gray-800 py-6 mt-16 text-center text-gray-400 text-sm">
-      <p>© 2025 RV University • RV Central</p>
-      <p>Made with ❤️ by the RV Central Dev Team</p>
-    </footer>
+    <!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-left"></div>
+  <div class="footer-contacts">
+    <a href="mailto:stackmasters@rvu.edu.in">stackmasters@rvu.edu.in</a>
+    <a href="https://linkedin.com/company/stackmasters" target="_blank">LinkedIn</a>
+    <a href="https://github.com/stackmasters" target="_blank">GitHub</a>
+  </div>
+  <div class="footer-team">
+    Made with &lt;3 by Stack Masters
+  </div>
+</footer>
   </div>
 
 
-  <!-- Galaxy Effect Script -->
-  <script>
-    const canvas = document.getElementById('galaxy-canvas');
-    const ctx = canvas.getContext('2d');
+  <!-- VANTA.WAVES Background -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta/dist/vanta.waves.min.js"></script>
+<script>
+  const vantaEffect = VANTA.WAVES({
+    el: "body",
+    mouseControls: true,
+    touchControls: true,
+    gyroControls: false,
+    minHeight: 200.00,
+    minWidth: 200.00,
+    scale: 1.00,
+    scaleMobile: 1.00,
+    color: 0x0a0520,
+    shininess: 20.00,
+    waveHeight: 20.00,
+    waveSpeed: 0.80,
+    zoom: 0.75
+  });
 
-
-    let width = window.innerWidth;
-    let height = window.innerHeight;
-    canvas.width = width;
-    canvas.height = height;
-
-
-    // Star particles
-    const stars = [];
-    const numStars = 400;
-   
-    // Mouse position
-    let mouse = { x: width / 2, y: height / 2 };
-    let targetMouse = { x: width / 2, y: height / 2 };
-
-
-    class Star {
-      constructor() {
-        this.reset();
-        this.y = Math.random() * height;
-        this.opacity = Math.random();
-      }
-
-
-      reset() {
-        this.x = Math.random() * width;
-        this.y = Math.random() * height;
-        this.z = Math.random() * 2;
-        this.size = Math.random() * 2 + 0.5;
-       
-        // Color variations - purple, blue, yellow tones
-        const colorChoice = Math.random();
-        if (colorChoice < 0.4) {
-          this.color = `rgba(139, 92, 246, ${0.6 + Math.random() * 0.4})`; // Purple
-        } else if (colorChoice < 0.7) {
-          this.color = `rgba(96, 165, 250, ${0.6 + Math.random() * 0.4})`; // Blue
-        } else {
-          this.color = `rgba(251, 191, 36, ${0.6 + Math.random() * 0.4})`; // Yellow
-        }
-       
-        this.speedX = (Math.random() - 0.5) * 0.3;
-        this.speedY = (Math.random() - 0.5) * 0.3;
-        this.twinkleSpeed = Math.random() * 0.02 + 0.01;
-        this.twinkleOffset = Math.random() * Math.PI * 2;
-      }
-
-
-      update(time) {
-        // Twinkle effect
-        this.opacity = 0.3 + Math.sin(time * this.twinkleSpeed + this.twinkleOffset) * 0.7;
-
-
-        // Mouse repulsion
-        const dx = this.x - mouse.x;
-        const dy = this.y - mouse.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        const minDistance = 150;
-
-
-        if (distance < minDistance) {
-          const force = (minDistance - distance) / minDistance;
-          this.x += (dx / distance) * force * 3;
-          this.y += (dy / distance) * force * 3;
-        }
-
-
-        // Slow drift
-        this.x += this.speedX;
-        this.y += this.speedY;
-
-
-        // Wrap around edges
-        if (this.x < 0) this.x = width;
-        if (this.x > width) this.x = 0;
-        if (this.y < 0) this.y = height;
-        if (this.y > height) this.y = 0;
-      }
-
-
-      draw() {
-        ctx.save();
-        ctx.globalAlpha = this.opacity;
-       
-        // Draw glow
-        const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size * 3);
-        gradient.addColorStop(0, this.color);
-        gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
-       
-        ctx.fillStyle = gradient;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size * 3, 0, Math.PI * 2);
-        ctx.fill();
-       
-        // Draw star core
-        ctx.fillStyle = this.color;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-       
-        ctx.restore();
-      }
-    }
-
-
-    // Create stars
-    for (let i = 0; i < numStars; i++) {
-      stars.push(new Star());
-    }
-
-
-    // Nebula clouds
-    class NebulaCloud {
-      constructor() {
-        this.x = Math.random() * width;
-        this.y = Math.random() * height;
-        this.radius = Math.random() * 200 + 100;
-        this.speedX = (Math.random() - 0.5) * 0.2;
-        this.speedY = (Math.random() - 0.5) * 0.2;
-       
-        const hue = Math.random() < 0.5 ? 250 : 45; // Purple or yellow
-        this.color = `hsla(${hue}, 70%, 50%, 0.03)`;
-      }
-
-
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-
-
-        if (this.x < -this.radius) this.x = width + this.radius;
-        if (this.x > width + this.radius) this.x = -this.radius;
-        if (this.y < -this.radius) this.y = height + this.radius;
-        if (this.y > height + this.radius) this.y = -this.radius;
-      }
-
-
-      draw() {
-        const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius);
-        gradient.addColorStop(0, this.color);
-        gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
-       
-        ctx.fillStyle = gradient;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-
-
-    const nebulae = [];
-    for (let i = 0; i < 5; i++) {
-      nebulae.push(new NebulaCloud());
-    }
-
-
-    let time = 0;
-    function animate() {
-      time += 0.01;
-     
-      // Smooth mouse following
-      mouse.x += (targetMouse.x - mouse.x) * 0.05;
-      mouse.y += (targetMouse.y - mouse.y) * 0.05;
-
-
-      // Clear with fade effect for trails
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
-      ctx.fillRect(0, 0, width, height);
-
-
-      // Draw nebulae
-      nebulae.forEach(nebula => {
-        nebula.update();
-        nebula.draw();
-      });
-
-
-      // Update and draw stars
-      stars.forEach(star => {
-        star.update(time);
-        star.draw();
-      });
-
-
-      requestAnimationFrame(animate);
-    }
-
-
-    // Mouse move listener
-    canvas.addEventListener('mousemove', (e) => {
-      targetMouse.x = e.clientX;
-      targetMouse.y = e.clientY;
-    });
-
-
-    // Resize handler
-    window.addEventListener('resize', () => {
-      width = window.innerWidth;
-      height = window.innerHeight;
-      canvas.width = width;
-      canvas.height = height;
-     
-      // Reset stars on resize
-      stars.forEach(star => star.reset());
-    });
-
-
-    animate();
-  </script>
+  // Fix: Force background to recalculate after content loads
+  window.addEventListener('load', () => {
+    window.dispatchEvent(new Event('resize'));
+  });
+</script>
 </body>
 </html>
